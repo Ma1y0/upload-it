@@ -5,11 +5,8 @@ import (
 	"server/src/router"
 )
 
-func init() {
-	db.ConnecToDB()
-}
-
 func main() {
+	db.ConnecToDB()
 	router := router.GetRouter()
 
 	router.Run()

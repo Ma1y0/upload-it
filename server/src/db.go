@@ -52,13 +52,15 @@ type Assignment struct {
 }
 
 func ConnecToDB() {
-	DB, err := sqlx.Connect("sqlite3", "database.sqlite3")
+	db, err := sqlx.Connect("sqlite3", "database.sqlite3")
 	if err != nil {
 		panic("Failed to establish database connection: " + err.Error())
 	}
 
-	_, err = DB.Exec(schema)
+	_, err = db.Exec(schema)
 	if err != nil {
 		panic("Failed to migrate db: " + err.Error())
 	}
+
+	DB = db
 }
