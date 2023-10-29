@@ -1,29 +1,55 @@
+import { NavLink } from "react-router-dom";
+import { useUserStore } from "../lib/auth-state";
+
 export default function NavBar() {
+  const { user, logOut } = useUserStore();
+
   return (
-    <div class="navbar bg-base-100">
-      <div class="flex-1">
-        <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
-      </div>
-      <div class="flex-none">
-        <ul class="menu menu-horizontal px-1">
-          <li>
-            <a>Link</a>
-          </li>
-          <li>
-            <details>
-              <summary>Parent</summary>
-              <ul class="p-2 bg-base-100">
+    <>
+      <div className="navbar bg-base-100">
+        <div className="flex-1">
+          <NavLink to="/" className="btn btn-ghost normal-case text-xl">
+            daisyUI
+          </NavLink>
+        </div>
+        <div className="flex-none gap-2">
+          <div className="form-control">
+            <input
+              type="text"
+              placeholder="Search"
+              className="input input-bordered w-24 md:w-auto"
+            />
+          </div>
+          {user ? (
+            <div className="dropdown dropdown-end">
+              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                <div className="w-10 rounded-full">
+                  <img src="/no-user-image-icon.jpg" />
+                </div>
+              </label>
+              <ul
+                tabIndex={0}
+                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+              >
                 <li>
-                  <a>Link 1</a>
+                  <a className="justify-between">
+                    Profile
+                    <span className="badge">New</span>
+                  </a>
                 </li>
                 <li>
-                  <a>Link 2</a>
+                  <p>Hello</p>
+                </li>
+                <li>
+                  <a onClick={() => logOut()}>Logout</a>
                 </li>
               </ul>
-            </details>
-          </li>
-        </ul>
+            </div>
+          ) : (
+            <NavLink to="/logIn">Log In</NavLink>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

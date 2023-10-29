@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS file (
 CREATE TABLE IF NOT EXISTS assignment (
     id UUID PRIMARY KEY,
 		title TEXT,
-		decription TEXT,
+		description TEXT,
     owner_id UUID,
     FOREIGN KEY (owner_id) REFERENCES user(id)
 );
