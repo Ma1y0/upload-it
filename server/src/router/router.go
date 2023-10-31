@@ -13,7 +13,12 @@ import (
 func GetRouter() *gin.Engine {
 	r := gin.Default()
 
-	r.Use(cors.Default())
+	// CORS
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowOrigins = []string{"http://localhost:5173"}
+	corsConfig.AllowCredentials = true
+
+	r.Use(cors.New(corsConfig))
 
 	// Rotes
 	v1 := r.Group("/api/v1")
@@ -26,6 +31,7 @@ func GetRouter() *gin.Engine {
 	{
 		userGroup.POST("/register", userRouter.HandleRegister)
 		userGroup.POST("/login", userRouter.HandleLogIn)
+		userGroup.GET("/update", middleware.AuthMiddleware, userRouter.HandelUpdateUserData)
 	}
 
 	// Assignment routes

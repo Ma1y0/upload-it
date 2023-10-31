@@ -56,11 +56,22 @@ func HandleLogIn(c *gin.Context) {
 	}
 
 	// Add jwt to the Cookie
-	// c.SetCookie("jwt", jwt_token, 86400, "/", "127.0.0.1", false, true)
+	c.SetCookie("jwt", jwt_token, 86400, "/", "127.0.0.1", false, true)
+
+	// Load users assigments
+	var assigments []db.Assignment
+	if err := db.DB.Select(&assigments, "SELECT * FROM assignment WHERE owner_id = $1", user.Id); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "Failed to retrive user's assigments",
+			"error":   err.Error(),
+		})
+	}
 
 	c.JSON(200, gin.H{
-		"message": "User successfully authenticated",
-		"jwt":     jwt_token,
+		"id":          user.Id,
+		"assignments": assigments,
+		"name":        user.Name,
+		"email":       user.Email,
 	})
 }
 

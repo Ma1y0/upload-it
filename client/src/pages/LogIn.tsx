@@ -31,10 +31,23 @@ export default function LogIn() {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(formData),
       }).then((res) => res.json());
 
-      logIn({ id: res.jwt });
+      logIn({
+        id: res.id,
+        assignments: res.assignments ?? [],
+        name: res.name,
+        email: res.email,
+      });
+
+      // console.log({
+      //   id: res.jwt,
+      //   assignments: res.assignments,
+      //   name: res.name,
+      //   email: res.email,
+      // });
 
       redirect("/");
     } catch (e) {
@@ -70,6 +83,22 @@ export default function LogIn() {
           Log In
         </button>
       </form>
+      <button
+        onClick={() =>
+          logIn({
+            id: "1234",
+            name: "Matt",
+            email: "matyas.barr@gmail.com",
+            assignments: [
+              { id: "1", title: "hello" },
+              { id: "2", title: "bye" },
+            ],
+          })
+        }
+        className="btn btn-warning"
+      >
+        Debug Login
+      </button>
     </div>
   );
 }
