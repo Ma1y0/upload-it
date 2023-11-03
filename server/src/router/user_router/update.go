@@ -21,7 +21,7 @@ func HandelUpdateUserData(c *gin.Context) {
 		return
 	}
 
-	var assignments []db.Assignment
+	assignments := []db.Assignment{}
 	if err := db.DB.Select(&assignments, "SELECT * FROM assignment WHERE owner_id = $1", id); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "Failed to retrive user's assignments",

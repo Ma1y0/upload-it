@@ -15,7 +15,7 @@ func GetRouter() *gin.Engine {
 
 	// CORS
 	corsConfig := cors.DefaultConfig()
-	corsConfig.AllowOrigins = []string{"http://localhost:5173"}
+	corsConfig.AllowOrigins = []string{"http://127.0.0.1:80"}
 	corsConfig.AllowCredentials = true
 
 	r.Use(cors.New(corsConfig))
@@ -31,7 +31,7 @@ func GetRouter() *gin.Engine {
 	{
 		userGroup.POST("/register", userRouter.HandleRegister)
 		userGroup.POST("/login", userRouter.HandleLogIn)
-		userGroup.GET("/update", middleware.AuthMiddleware, userRouter.HandelUpdateUserData)
+		userGroup.GET("/", middleware.AuthMiddleware, userRouter.HandelUpdateUserData)
 	}
 
 	// Assignment routes

@@ -26,7 +26,7 @@ export default function LogIn() {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://127.0.0.1:8080/api/v1/user/login", {
+      const res = await fetch("http://127.0.0.1/api/v1/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,17 +37,18 @@ export default function LogIn() {
 
       logIn({
         id: res.id,
-        assignments: res.assignments ?? [],
+        assignments: res.assignments,
         name: res.name,
         email: res.email,
       });
 
-      // console.log({
-      //   id: res.jwt,
-      //   assignments: res.assignments,
-      //   name: res.name,
-      //   email: res.email,
-      // });
+      console.log({
+        id: res.id,
+        assignments: res.assignments,
+        name: res.name,
+        email: res.email,
+      });
+      console.log(res);
 
       redirect("/");
     } catch (e) {
@@ -90,8 +91,18 @@ export default function LogIn() {
             name: "Matt",
             email: "matyas.barr@gmail.com",
             assignments: [
-              { id: "1", title: "hello" },
-              { id: "2", title: "bye" },
+              {
+                Id: "1",
+                Title: "hello",
+                Completed: 6,
+                Due: new Date(2023, 10, 15),
+              },
+              {
+                Id: "2",
+                Title: "bye",
+                Completed: 8,
+                Due: new Date(2023, 10, 18),
+              },
             ],
           })
         }

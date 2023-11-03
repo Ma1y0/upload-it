@@ -11,6 +11,7 @@ import (
 type newAssignmentInput struct {
 	Title       string `binding:"required"`
 	Description string `binding:"required"`
+	Due         string `binding:"required"`
 }
 
 func HandleNewAssignment(c *gin.Context) {
@@ -31,11 +32,13 @@ func HandleNewAssignment(c *gin.Context) {
 	newAssignment := db.Assignment{
 		Id:          uuid.NewString(),
 		Title:       body.Title,
+		Due:         body.Due,
+		Completed:   0,
 		Description: body.Description,
 		OwnerId:     user_id,
 	}
 
-	if _, err := db.DB.NamedExec("INSERT INTO assignment VALUES (:id, :title, :description, :owner_id)", newAssignment); err != nil {
+	if _, err := db.DB.NamedExec("INSERT INTO assignment VALUES (:id, :title, :description, :owner_id, :due, :completed)", newAssignment); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "Failed to inser new assignment into database",
 			"error":   err.Error(),

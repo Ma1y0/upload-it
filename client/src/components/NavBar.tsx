@@ -3,7 +3,11 @@ import { useUserStore } from "../lib/auth-state";
 import { useEffect } from "react";
 
 export default function NavBar() {
-  const { user, logOut } = useUserStore();
+  const { user, logOut, update } = useUserStore();
+
+  useEffect(() => {
+    update();
+  }, []);
 
   return (
     <>

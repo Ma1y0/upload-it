@@ -18,8 +18,25 @@ export default function NewAssignment() {
     }));
   };
 
-  const submit = (e: FormEvent<HTMLFormElement>) => {
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    try {
+      const res = await fetch("http://127.0.0.1/api/v1/assignment", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        console.error(await res.json());
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (

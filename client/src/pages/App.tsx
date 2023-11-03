@@ -1,7 +1,7 @@
 function App() {
   const a = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8080/api/v1/ping");
+      const response = await fetch("http://127.0.0.1/api/v1/ping");
       const data = await response.json();
       console.log("Response Data:", data);
     } catch (error) {
