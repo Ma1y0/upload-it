@@ -48,5 +48,6 @@ func HandleNewAssignment(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Successfully creates new assignment",
+		"id":      newAssignment,
 	})
 }

@@ -31,6 +31,7 @@ func GetRouter() *gin.Engine {
 	{
 		userGroup.POST("/register", userRouter.HandleRegister)
 		userGroup.POST("/login", userRouter.HandleLogIn)
+		userGroup.POST("/logout", userRouter.HandleUserLogOut)
 		userGroup.GET("/", middleware.AuthMiddleware, userRouter.HandelUpdateUserData)
 	}
 

@@ -9,6 +9,7 @@ export default function NewAssignment() {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
+    due: "",
   });
 
   const change = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,16 +52,27 @@ export default function NewAssignment() {
               value={formData.title}
               onChange={change}
               name="title"
-              placeholder="title"
+              placeholder="Title"
               className="input input-bordered w-full max-w-xs"
+              required
             />
             <input
               value={formData.description}
               onChange={change}
               name="description"
-              placeholder="description"
+              placeholder="Description"
+              className="input input-bordered w-full max-w-xs"
+              required
+            />
+            <input
+              value={formData.due}
+              onChange={change}
+              name="due"
+              placeholder="Due"
+              type="date"
               className="input input-bordered w-full max-w-xs"
             />
+
             <button type="submit" className="btn btn-success">
               Create
             </button>

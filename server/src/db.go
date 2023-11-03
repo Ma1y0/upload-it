@@ -11,26 +11,26 @@ var schema = `
 CREATE TABLE IF NOT EXISTS user (
     id UUID PRIMARY KEY,
     email TEXT UNIQUE,
-    name TEXT,
-		password TEXT
+    name TEXT NOT NULL,
+		password TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS file (
     id UUID PRIMARY KEY,
 		description TEXT,
-		assignment_id UUID,
-    owner_id UUID,
+		assignment_id UUID NOT NULL,
+    owner_id UUID NOT NULL,
     FOREIGN KEY (owner_id) REFERENCES user(id)
     FOREIGN KEY (assignment_id) REFERENCES assignment(id)
 );
 
 CREATE TABLE IF NOT EXISTS assignment (
     id UUID PRIMARY KEY,
-		title TEXT,
+		title TEXT NOT NULL,
 		completed INTEGER,
 		description TEXT,
 		due TEXT,
-    owner_id UUID,
+    owner_id UUID NOT NULL,
     FOREIGN KEY (owner_id) REFERENCES user(id)
 );
 `

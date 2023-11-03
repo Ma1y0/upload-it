@@ -21,11 +21,23 @@ interface UserStore {
   update: () => void;
 }
 
+function logOutUser() {
+  fetch("http://127.0.0.1/api/v1/user/logout", {
+    method: "POST",
+    credentials: "include",
+  }).catch((e) => console.log(`Failed to log out user: ${e}`));
+}
+
 async function updateUserData() {
   try {
     const res = await fetch("http://127.0.0.1/api/v1/user", {
       credentials: "include",
     });
+
+    // Unauthorized no jwt
+    if (res.status === 401) {
+      return null;
+    }
 
     return await res.json();
   } catch (e) {
@@ -36,7 +48,10 @@ async function updateUserData() {
 export const useUserStore = create<UserStore>((set) => ({
   user: null,
   logIn: (user) => set({ user }),
-  logOut: () => set({ user: null }),
+  logOut: () => {
+    logOutUser();
+    set({ user: null });
+  },
   update: async () => {
     const updatedUserData = await updateUserData();
     console.log("Updated!", updatedUserData);
