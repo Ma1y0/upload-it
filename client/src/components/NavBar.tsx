@@ -51,7 +51,22 @@ export default function NavBar() {
               </div>
             </>
           ) : (
-            <NavLink to="/logIn">Log In</NavLink>
+            <ul className="flex gap-3">
+              <li>
+                <NavLink to="/logIn" className="btn btn-primary">
+                  Log In
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/register"
+                  className="btn bg-yellow-500 border-transparent hover:bg-yellow-600 text-white"
+                >
+                  {" "}
+                  Register
+                </NavLink>
+              </li>
+            </ul>
           )}
         </div>
       </div>

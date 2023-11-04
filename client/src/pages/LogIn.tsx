@@ -33,22 +33,26 @@ export default function LogIn() {
         },
         credentials: "include",
         body: JSON.stringify(formData),
-      }).then((res) => res.json());
-
-      logIn({
-        id: res.id,
-        assignments: res.assignments,
-        name: res.name,
-        email: res.email,
       });
 
-      console.log({
-        id: res.id,
-        assignments: res.assignments,
-        name: res.name,
-        email: res.email,
-      });
-      console.log(res);
+      if (res.ok) {
+        const res_json = await res.json();
+        logIn({
+          id: res_json.id,
+          assignments: res_json.assignments,
+          name: res_json.name,
+          email: res_json.email,
+        });
+
+        console.log({
+          id: res_json.id,
+          assignments: res_json.assignments,
+          name: res_json.name,
+          email: res_json.email,
+        });
+
+        console.log(res_json);
+      }
 
       redirect("/");
     } catch (e) {
