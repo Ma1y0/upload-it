@@ -1,4 +1,8 @@
-import { faPerson, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPerson,
+  faShareNodes,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { Assignment } from "../lib/auth-state";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
@@ -18,7 +22,7 @@ export default function AssignmentCard({ assignment }: Iprops) {
     }
   };
 
-  const date = assignment.Due.getDate();
+  const date = new Date(assignment.Due);
   const fDate = new Intl.DateTimeFormat("en-GB", {
     day: "2-digit",
     month: "2-digit",
@@ -30,6 +34,15 @@ export default function AssignmentCard({ assignment }: Iprops) {
       <div className="card bg-base-300 shadow-xl">
         <div className="p-8 flex justify-between">
           <h2>{assignment.Title}</h2>
+          <span
+            onClick={async () => {
+              await navigator.clipboard.writeText(
+                `http://127.0.0.1/assignment/${assignment.Id}`,
+              );
+            }}
+          >
+            <FontAwesomeIcon icon={faShareNodes} />
+          </span>
           <div>
             <span className="mr-6">
               {assignment.Completed}

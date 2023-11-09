@@ -98,7 +98,7 @@ export default function LogIn() {
               {
                 Id: "1",
                 Title: "hello",
-                Completed: 6,
+                Completed: 89,
                 Due: new Date(2023, 10, 15),
               },
               {

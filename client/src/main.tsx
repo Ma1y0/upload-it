@@ -8,6 +8,7 @@ import UserPage from "./pages/UserPage";
 import NewAssignment from "./pages/NewAssignment";
 import Register from "./pages/Register";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import FillInAssignment from "./pages/FillInAssignment";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<UserPage />} />
         <Route path="/assignment/new" element={<NewAssignment />} />
+        <Route path="/assignment/:id" element={<FillInAssignment />} />
         {/* Default route */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

@@ -35,7 +35,7 @@ async function updateUserData() {
     });
 
     // Unauthorized no jwt
-    if (res.status === 401) {
+    if (res.status === 401 || res.status === 500) {
       return null;
     }
 

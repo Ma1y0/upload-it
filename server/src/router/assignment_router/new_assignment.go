@@ -38,7 +38,7 @@ func HandleNewAssignment(c *gin.Context) {
 		OwnerId:     user_id,
 	}
 
-	if _, err := db.DB.NamedExec("INSERT INTO assignment VALUES (:id, :title, :description, :owner_id, :due, :completed)", newAssignment); err != nil {
+	if _, err := db.DB.NamedExec("INSERT INTO assignment VALUES (:id, :title, :completed, :description, :due, :owner_id)", newAssignment); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "Failed to inser new assignment into database",
 			"error":   err.Error(),
