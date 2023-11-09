@@ -40,6 +40,7 @@ func GetRouter() *gin.Engine {
 	assignmentGroup.Use(middleware.AuthMiddleware)
 	{
 		assignmentGroup.POST("/", assignmentRouter.HandleNewAssignment)
+		assignmentGroup.GET("/:id", assignmentRouter.HandleGetAssignmentById)
 		assignmentGroup.DELETE("/:id", assignmentRouter.HandleDeleteAssignment)
 	}
 

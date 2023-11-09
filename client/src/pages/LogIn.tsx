@@ -100,12 +100,14 @@ export default function LogIn() {
                 Title: "hello",
                 Completed: 89,
                 Due: new Date(2023, 10, 15),
+                Description: "a",
               },
               {
                 Id: "2",
                 Title: "bye",
                 Completed: 8,
                 Due: new Date(2023, 10, 18),
+                Description: "a",
               },
             ],
           })

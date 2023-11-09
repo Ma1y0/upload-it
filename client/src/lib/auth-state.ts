@@ -4,6 +4,7 @@ export interface Assignment {
   Id: string;
   Title: string;
   Completed: number;
+  Description: string;
   Due: Date;
 }
 
