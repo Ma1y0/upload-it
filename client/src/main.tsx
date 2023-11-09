@@ -9,10 +9,21 @@ import NewAssignment from "./pages/NewAssignment";
 import Register from "./pages/Register";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import FillInAssignment from "./pages/FillInAssignment";
+import { Toaster } from "react-hot-toast";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          style: {
+            background: "#333",
+            color: "#fff",
+            padding: "1rem",
+          },
+        }}
+      />
       <NavBar />
       <Routes>
         <Route path="/" element={<App />} />

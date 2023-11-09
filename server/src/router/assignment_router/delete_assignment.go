@@ -34,5 +34,10 @@ func HandleDeleteAssignment(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "Failed to delete the record",
 		})
+		return
 	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Successfully deleted assignment",
+	})
 }

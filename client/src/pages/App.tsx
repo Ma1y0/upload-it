@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 function App() {
   const a = async () => {
     try {
@@ -12,6 +14,9 @@ function App() {
     <>
       <h1>Hello World</h1>
       <button onClick={a}>Click Me</button>
+      <button onClick={() => toast.success("Hello")} className="btn">
+        Click Me
+      </button>
     </>
   );
 }
