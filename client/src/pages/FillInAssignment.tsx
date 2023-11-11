@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Assignment } from "../lib/auth-state";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,23 +10,26 @@ export default function FillInAssignment() {
   const { id } = useParams();
 
   const [assignment, setAssignment] = useState<Assignment | null>(null);
-  const [files, setFiles] = useState(1);
+  const [filesCount, setFilesCount] = useState(1);
   const [filesInput, setFilesInput] = useState<JSX.Element[]>();
+  const [files, setFiles] = useState<File[]>([]);
   const [loadding, setLoadding] = useState(false);
 
   // Creates files inputs
   useEffect(() => {
     setFilesInput(
-      Array.from({ length: files }, (_, index) => (
+      Array.from({ length: filesCount }, (_, index) => (
         <input
           key={index}
           name={`file-${index}`}
+          onChange={onAddFile}
           type="file"
           className="file-input file-input-bordered w-full max-w-xs"
+          required
         />
       )),
     );
-  }, [files]);
+  }, [filesCount]);
 
   // Fetch the Assignmet's details
   useEffect(() => {
@@ -48,21 +51,37 @@ export default function FillInAssignment() {
   }, []);
 
   const onNewFileInput = () => {
-    setFiles((prevState) => prevState + 1);
+    setFilesCount((prevState) => prevState + 1);
+  };
+
+  const onAddFile = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      setFiles((prevState) => [...prevState, ...Array.from(files)]);
+    }
   };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoadding(true);
 
+    const formData = new FormData();
+
+    files.forEach((file, i) => {
+      formData.append(`file-${i}`, file);
+    });
+
     try {
-      const res = await fetch(`http://127.0.0.1/api/v1/assignment/fill/${id}`, {
+      const res = await fetch(`http://127.0.0.1/api/v1/assignment/${id}`, {
         method: "POST",
         credentials: "include",
+        body: formData,
       });
 
       if (res.ok) {
         toast.success("Successfully filled in the assignment");
+        setFiles([]);
+        setFilesCount(1);
       } else {
         toast.error("Something went wrong :(");
       }

@@ -65,6 +65,9 @@ export default function AssignmentCard({ assignment }: Iprops) {
                       await navigator.clipboard.writeText(
                         `http://127.0.0.1/assignment/${assignment.Id}`,
                       );
+                      toast("The URL has been copied to your clipboard", {
+                        icon: "📋",
+                      });
                     }}
                   >
                     <FontAwesomeIcon icon={faShareNodes} />

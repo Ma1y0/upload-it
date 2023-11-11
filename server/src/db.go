@@ -15,13 +15,19 @@ CREATE TABLE IF NOT EXISTS user (
 		password TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS file (
+CREATE TABLE IF NOT EXISTS answer (
     id UUID PRIMARY KEY,
-		description TEXT,
 		assignment_id UUID NOT NULL,
     owner_id UUID NOT NULL,
-    FOREIGN KEY (owner_id) REFERENCES user(id)
+    FOREIGN KEY (owner_id) REFERENCES user(id),
     FOREIGN KEY (assignment_id) REFERENCES assignment(id)
+);
+
+CREATE TABLE IF NOT EXISTS file (
+	id UUID PRIMARY KEY,
+	name TEXT NOT NULL,
+	answer_id UUID NOT NULL,
+	FOREIGN KEY (answer_id) REFERENCES answer(id)
 );
 
 CREATE TABLE IF NOT EXISTS assignment (
@@ -43,8 +49,13 @@ type User struct {
 }
 
 type File struct {
+	Id       string `db:"id"`
+	Name     string `db:"name"`
+	AnswerId string `db:"answer_id"`
+}
+
+type Asnwer struct {
 	Id           string `db:"id"`
-	Description  string `db:"description"`
 	AssignmentId string `db:"assignment_id"`
 	OwnerId      string `db:"owner_id"`
 }

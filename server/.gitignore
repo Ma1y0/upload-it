@@ -1,3 +1,4 @@
 tmp/
 database.sqlite3
 .env
+files/
