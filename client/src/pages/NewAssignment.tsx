@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useUserStore } from "../lib/auth-state";
 import { Navigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function NewAssignment() {
   // loads user's data
@@ -11,6 +12,7 @@ export default function NewAssignment() {
     description: "",
     due: "",
   });
+  const [loadding, setLoadding] = useState(false);
 
   const change = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
@@ -21,6 +23,7 @@ export default function NewAssignment() {
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoadding(true);
 
     try {
       const res = await fetch("http://127.0.0.1/api/v1/assignment", {
@@ -32,12 +35,17 @@ export default function NewAssignment() {
         body: JSON.stringify(formData),
       });
 
-      if (!res.ok) {
-        console.error(await res.json());
+      if (res.ok) {
+        toast.success("Successfully creted new assignment");
+      } else {
+        toast.error("Something went wrong");
       }
     } catch (e) {
       console.error(e);
+      toast.error("Something went wrong");
     }
+
+    setLoadding(false);
   };
 
   return (
@@ -73,7 +81,10 @@ export default function NewAssignment() {
               className="input input-bordered w-full max-w-xs"
             />
 
-            <button type="submit" className="btn btn-success">
+            <button
+              type="submit"
+              className={`btn ${loadding ? "btn-disabled" : "btn-success"}`}
+            >
               Create
             </button>
           </form>

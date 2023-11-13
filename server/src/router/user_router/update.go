@@ -30,6 +30,8 @@ func HandelUpdateUserData(c *gin.Context) {
 		return
 	}
 
+	user.Password = ""
+
 	c.JSON(200, gin.H{
 		"message":     "Succesfully retrived users info",
 		"user":        user,

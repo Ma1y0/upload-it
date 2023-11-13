@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useUserStore } from "../lib/auth-state";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 export default function NavBar() {
   const { user, logOut, update } = useUserStore();
@@ -45,7 +46,14 @@ export default function NavBar() {
                     <p>Hello</p>
                   </li>
                   <li>
-                    <a onClick={() => logOut()}>Logout</a>
+                    <a
+                      onClick={() => {
+                        logOut();
+                        toast.success("You've been successfully logged out");
+                      }}
+                    >
+                      Logout
+                    </a>
                   </li>
                 </ul>
               </div>

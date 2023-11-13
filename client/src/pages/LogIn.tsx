@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useUserStore } from "../lib/auth-state";
-import { redirect } from "react-router-dom";
+import toast from "react-hot-toast";
 
 interface LogInState {
   email: string;
@@ -15,6 +15,7 @@ export default function LogIn() {
     email: "",
     password: "",
   });
+  const [loaddinng, setLoadding] = useState(false);
 
   const onchange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
@@ -25,6 +26,8 @@ export default function LogIn() {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoadding(true);
+
     try {
       const res = await fetch("http://127.0.0.1/api/v1/user/login", {
         method: "POST",
@@ -52,12 +55,17 @@ export default function LogIn() {
         });
 
         console.log(res_json);
-      }
 
-      redirect("/");
+        toast.success("Loged In");
+      } else {
+        toast.error("Filed to log you in");
+      }
     } catch (e) {
       console.error(e);
+      toast.error("Filed to log you in");
     }
+
+    setLoadding(false);
   };
 
   return (
@@ -84,7 +92,10 @@ export default function LogIn() {
           className="input input-bordered w-full max-w-[20%]"
           required
         />
-        <button type="submit" className="btn btn-primary">
+        <button
+          type="submit"
+          className={`btn ${loaddinng ? "btn-disabled" : "btn-success"}`}
+        >
           Log In
         </button>
       </form>
