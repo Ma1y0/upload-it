@@ -7,9 +7,11 @@ import LogIn from "./pages/LogIn";
 import UserPage from "./pages/UserPage";
 import NewAssignment from "./pages/NewAssignment";
 import Register from "./pages/Register";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FillInAssignment from "./pages/FillInAssignment";
 import { Toaster } from "react-hot-toast";
+// import AssignmentDetails from "./pages/AssignmentDetails";
+// <Right>        <Route path="/assignment/:id" element={<AssignmentDetails />} />
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -31,9 +33,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<UserPage />} />
         <Route path="/assignment/new" element={<NewAssignment />} />
-        <Route path="/assignment/:id" element={<FillInAssignment />} />
+        <Route path="/assignment/fill/:id" element={<FillInAssignment />} />
         {/* Default route */}
-        <Route path="*" element={<Navigate to="/" />} />
+        {/* <Route path="*" element={<Navigate to="/" />} /> */}
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

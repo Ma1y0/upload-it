@@ -63,7 +63,7 @@ export default function AssignmentCard({ assignment }: Iprops) {
                   <span
                     onClick={async () => {
                       await navigator.clipboard.writeText(
-                        `http://127.0.0.1/assignment/${assignment.Id}`,
+                        `http://127.0.0.1/assignment/fill/${assignment.Id}`,
                       );
                       toast("The URL has been copied to your clipboard", {
                         icon: "📋",

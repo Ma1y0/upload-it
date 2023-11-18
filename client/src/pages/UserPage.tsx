@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import AssignmentCard from "../components/AssignmentCard";
 import { useUserStore } from "../lib/auth-state";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function UserPage() {
   const { user, update } = useUserStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     update();
@@ -22,7 +23,11 @@ export default function UserPage() {
           <div>
             <ul className="flex flex-col items-center gap-2">
               {user.assignments.map((assignment) => (
-                <li key={assignment.Id} className="w-[70%]">
+                <li
+                  key={assignment.Id}
+                  className="w-[70%]"
+                  onClick={() => navigate(`/assignment/${assignment.Id}`)}
+                >
                   <AssignmentCard assignment={assignment} />
                 </li>
               ))}

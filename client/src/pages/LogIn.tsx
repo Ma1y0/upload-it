@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useUserStore } from "../lib/auth-state";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 interface LogInState {
   email: string;
@@ -10,6 +11,7 @@ interface LogInState {
 export default function LogIn() {
   // Auth store
   const { logIn } = useUserStore();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState<LogInState>({
     email: "",
@@ -57,12 +59,13 @@ export default function LogIn() {
         console.log(res_json);
 
         toast.success("Loged In");
+        navigate(-1);
       } else {
-        toast.error("Filed to log you in");
+        toast.error("Wrong email or password");
       }
     } catch (e) {
       console.error(e);
-      toast.error("Filed to log you in");
+      toast.error("Wrong email or password");
     }
 
     setLoadding(false);
@@ -99,34 +102,6 @@ export default function LogIn() {
           Log In
         </button>
       </form>
-      <button
-        onClick={() =>
-          logIn({
-            id: "1234",
-            name: "Matt",
-            email: "matyas.barr@gmail.com",
-            assignments: [
-              {
-                Id: "1",
-                Title: "hello",
-                Completed: 89,
-                Due: new Date(2023, 10, 15),
-                Description: "a",
-              },
-              {
-                Id: "2",
-                Title: "bye",
-                Completed: 8,
-                Due: new Date(2023, 10, 18),
-                Description: "a",
-              },
-            ],
-          })
-        }
-        className="btn btn-warning"
-      >
-        Debug Login
-      </button>
     </div>
   );
 }

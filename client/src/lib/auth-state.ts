@@ -6,6 +6,11 @@ export interface Assignment {
   Completed: number;
   Description: string;
   Due: Date;
+  Answer: Answer[];
+}
+
+interface Answer {
+  Id: string;
 }
 
 interface User {

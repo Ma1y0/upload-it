@@ -33,7 +33,7 @@ func HandleFillAssignment(c *gin.Context) {
 	}
 
 	// Creates answer record
-	answer := db.Asnwer{
+	answer := db.Answer{
 		Id:           uuid.NewString(),
 		OwnerId:      user_id,
 		AssignmentId: assignment_id,
