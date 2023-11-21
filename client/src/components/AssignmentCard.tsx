@@ -9,12 +9,15 @@ import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
 import Spinner from "./Spinner";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 interface Iprops {
   assignment: Assignment;
 }
 
 export default function AssignmentCard({ assignment }: Iprops) {
+  const navigate = useNavigate();
+
   const [deleting, setDeleting] = useState<boolean>(false);
   const [deleted, setDeleted] = useState<boolean>(false);
 
@@ -59,13 +62,19 @@ export default function AssignmentCard({ assignment }: Iprops) {
             ) : (
               <>
                 <div className="p-8 flex justify-between">
-                  <h2>{assignment.Title}</h2>
+                  <h2
+                    onClick={() =>
+                      navigate(`/assignment/details/${assignment.Id}`)
+                    }
+                  >
+                    {assignment.Title}
+                  </h2>
                   <span
                     onClick={async () => {
                       await navigator.clipboard.writeText(
                         `http://127.0.0.1/assignment/fill/${assignment.Id}`,
                       );
-                      toast("The URL has been copied to your clipboard", {
+                      toast("The URL has been copied in to your clipboard", {
                         icon: "📋",
                       });
                     }}

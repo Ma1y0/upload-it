@@ -8,6 +8,7 @@ import (
 )
 
 func HandleGetAssignmentById(c *gin.Context) {
+	// user_id := c.GetString("user_id") // jwt token
 	assignment_id := c.Param("id") // Path
 
 	// Fetch the assignment
@@ -20,9 +21,26 @@ func HandleGetAssignmentById(c *gin.Context) {
 		return
 	}
 
-	// // Fetch answers
-	// answers := []db.Answer{}
-	// if err := db.DB.Select(&answers, "SELECT answer.*, file.* FROM answer JOIN file ON answer.id = file.answer_id WHERE answer.assignment_id = $1", assignment_id); err != nil {
+	// if assignment.OwnerId != user_id {
+	// 	c.JSON(http.StatusUnauthorized, gin.H{
+	// 		"message": "Assignment doesn't belong to you",
+	// 	})
+	// 	return
+	// }
+
+	// Fetch answers
+	// type answers_files struct {
+	// 	db.Answer
+	// 	Files []db.File
+	// }
+	//
+	// answers := []answers_files{}
+	// if err := db.DB.Select(&answers, `
+	// 		SELECT answer.*, file.id as file_id, file.name as file_name, file.answer_id as file_answer_id
+	// 		FROM answer
+	// 		LEFT JOIN file ON answer.id = file.answer_id
+	// 		WHERE answer.assignment_id = $1`,
+	// 	assignment_id); err != nil {
 	// 	c.JSON(http.StatusInternalServerError, gin.H{
 	// 		"message": "Failed to retrive a records from the database",
 	// 		"error":   err.Error(),
@@ -33,6 +51,5 @@ func HandleGetAssignmentById(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message":    "Succesfully found record",
 		"assignment": assignment,
-		// "answers":    answers,
 	})
-
+}

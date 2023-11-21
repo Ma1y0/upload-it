@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FillInAssignment from "./pages/FillInAssignment";
 import { Toaster } from "react-hot-toast";
+import AssignmentDetails from "./pages/AssignmentDetails";
 // import AssignmentDetails from "./pages/AssignmentDetails";
 // <Right>        <Route path="/assignment/:id" element={<AssignmentDetails />} />
 
@@ -34,6 +35,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/profile" element={<UserPage />} />
         <Route path="/assignment/new" element={<NewAssignment />} />
         <Route path="/assignment/fill/:id" element={<FillInAssignment />} />
+        <Route path="/assignment/details/:id" element={<AssignmentDetails />} />
         {/* Default route */}
         {/* <Route path="*" element={<Navigate to="/" />} /> */}
       </Routes>
